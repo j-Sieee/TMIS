@@ -18,5 +18,8 @@ class ApplyModel extends Model
 	 */
 	protected $fillable = [
 		'applicant_code	', 'applicant_firstname','applicant_middlename', 'applicant_lastname', 'applicant_address', 'applicant_barangay', 'applicant_citytown',
-	];
+    ];
+    
 }
+
+

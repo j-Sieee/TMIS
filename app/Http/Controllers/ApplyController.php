@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\ApplyModel;
+use App\TransApplyModel;
+
 class ApplyController extends Controller
 {
     /**
@@ -15,6 +17,9 @@ class ApplyController extends Controller
     public function index()
     {
         //
+        $maxID = DB::select('select MAX(`applicant_id`) as MaxID FROM `transformer_applicant`');
+        return view('home',['maxID'=>$maxID]);
+
     }
 
     /**
@@ -35,6 +40,8 @@ class ApplyController extends Controller
      */
     public function store(Request $request)
     {
+
+        $i = 1;
 
         $request->validate([
             'inputCode' => 'required',
@@ -60,11 +67,17 @@ class ApplyController extends Controller
         
         $Apply->save();
 
+        $TransApply = New TransApplyModel;
+       
+        $TransApply->applicant_id = $i;
 
-        // DB::insert('INSERT INTO `transformer_applicant`(`applicant_code`, `applicant_firstname`, `applicant_middlename`, `applicant_lastname`, `applicant_address`, `applicant_barangay`, `applicant_citytown`) values(?,?,?,?,?,?,?)',[$inputCode,$inputfname,$inputmname,$inputlname,$inputAddress,$inputBarangay,$inputCity]);
+        $TransApply->application_record = $request->get('appRecord');
+        $TransApply->application_date = $request->get('appDate');
+        $TransApply->application_type_id = $request->get('appTypeId');
+        $TransApply->save();
         return redirect('/');
          
-    
+    $i++;
         
     }
 

@@ -33,6 +33,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::post('/apply', 'ApplyController@store');
 
 Route::get('/', 'TransformerTypeController@index');
+// Route::get('/', 'ApplyController@index');

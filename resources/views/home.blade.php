@@ -7,15 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <!-- <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div> -->
+              
                 
                 <div class="card-body">
                 <form method="post" action="/apply">
@@ -24,6 +16,7 @@
     <div class="form-group col-md-2">
       <label for="inputCode">Code</label>
       <input type="text" class="form-control" name="inputCode" placeholder="Code">
+     
     </div>
     <div class="form-group col-md-6">
       <label for="inputfname">First Name</label>
@@ -61,16 +54,30 @@
 <div class="form-group"> 
 
     Transformer Application Type:
-    <select class="custom-select mr-sm-1" id="inlineFormCustomSelect">
+    <select name="appTypeId" class="custom-select mr-sm-1" id="inlineFormCustomSelect">
         @foreach ($users as $apptrans_type)
-        <option value='{{$apptrans_type->application_type_id}}'>{{$apptrans_type->application_type_name}}</option>
+        <option value="{{$apptrans_type->application_type_id}}">{{$apptrans_type->application_type_name}}</option>
         @endforeach
        
       </select>
 </div>
 
+<div class="form-group">
+<div class="form-row">
+  
+  <div class="form-group col-md-6">
+    <label for="appRecord">Application Record</label>
+    <input type="text" class="form-control" name="appRecord" placeholder="Records">
+  </div>
+  <div class="form-group col-md-6" >
+    <label for="appDate">Application Date</label>
+    <input type="date" class="form-control" name="appDate" >
+  </div>
+  </div>
 
-  <div class="form-group">
+</div>
+
+<div class="form-group">
 
   <button type="submit" class="btn btn-primary">Submit Application</button>
   
