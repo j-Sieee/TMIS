@@ -114,8 +114,11 @@ class ViewApplicationController extends Controller
 
         // echo "asdadads";
         // ApplyModel::find($id)->delete();
-        DB::delete('delete from transformer_applicant where applicant_id = ?',[$id]);
+        DB::delete('delete `transformer_application`, `transformer_applicant`  FROM `transformer_application` INNER JOIN`transformer_applicant` WHERE  `transformer_application`.`applicant_id` = `transformer_applicant`.`applicant_id`  AND `transformer_applicant`.`applicant_id` = ?',[$id]);
+      
+
         return json_encode(array('statusCode'=>200));
+        
 
 
        
