@@ -84,6 +84,25 @@ class ViewApplicationController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //     console.log("aasd");
+    //     //
+    //     ApplyModel::find($id)->delete();
+    //     // DB::table('transformer_applicant')->where('applicant_id', $id)->delete();
+        
+        
+    //     return response()->json([
+    //         'success' => 'Record has been deleted successfully!'
+    //     ]);
+
+        // echo "asdasdasdas";
+
+            
+     
+        
+        // ApplyModel::find($id)->delete();
+        DB::delete('delete from transformer_applicant where applicant_id = ?',[$id]);
+        
+        return back()->with("status", "Your message has been received, We'll get back to you shortly.");
+
     }
 }

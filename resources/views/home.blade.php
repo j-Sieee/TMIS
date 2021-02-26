@@ -91,9 +91,4 @@
 @endsection
 
 
-<script>
 
-
-
-
-</script>

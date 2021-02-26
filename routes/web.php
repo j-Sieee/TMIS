@@ -29,24 +29,4 @@ return view('/view_application');
 
 });
 Route::get('/view', 'ViewApplicationController@index');
-
-
-
-// Auth::routes();
-// Route::get('/', function () {
-// return view('auth/login');
-
-// });
-
-
-// Route::post('/apply', 'ApplyController@store');
-// Route::get('/', 'TransformerTypeController@index');
-// // Route::get('/', 'ApplyController@index');
-
-// Route::get('/view', function(){
-
-// return view('/view_application');
-
-// });
-// Route::get('/view', 'ViewApplicationController@index');
-
+Route::get('view/{id}', 'ViewApplicationController@destroy');

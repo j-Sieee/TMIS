@@ -48,7 +48,7 @@ class ApplyController extends Controller
     public function store(Request $request)
     {
 
-       
+        // <script></script>
         $request->validate([
             'inputCode' => 'required',
             'inputfname' => 'required',
@@ -62,28 +62,28 @@ class ApplyController extends Controller
             'appTypeId' => 'required',
         ]);
         
-        // //
-        // $Apply = New ApplyModel;
-        // $Apply->applicant_code = $request->get('inputCode');
-        // $Apply->applicant_firstname = $request->get('inputfname');
-        // $Apply->applicant_middlename = $request->get('inputmname');
-        // $Apply->applicant_lastname = $request->get('inputlname');
-        // $Apply->applicant_address = $request->get('inputAddress');
-        // $Apply->applicant_barangay = $request->get('inputBarangay');
-        // $Apply->applicant_citytown = $request->get('inputCity');
+        //
+        $Apply = New ApplyModel;
+        $Apply->applicant_code = $request->get('inputCode');
+        $Apply->applicant_firstname = $request->get('inputfname');
+        $Apply->applicant_middlename = $request->get('inputmname');
+        $Apply->applicant_lastname = $request->get('inputlname');
+        $Apply->applicant_address = $request->get('inputAddress');
+        $Apply->applicant_barangay = $request->get('inputBarangay');
+        $Apply->applicant_citytown = $request->get('inputCity');
         
-        // $Apply->save();
-        // $Apply->id;
+        $Apply->save();
+        $Apply->id;
 
-        // $TransApply = New TransApplyModel;
+        $TransApply = New TransApplyModel;
        
-        // $TransApply->applicant_id = $Apply->id; ;
+        $TransApply->applicant_id = $Apply->id; ;
 
-        // $TransApply->application_record = $request->get('appRecord');
-        // $TransApply->application_date = $request->get('appDate');
-        // $TransApply->application_type_id = $request->get('appTypeId');
-        // $TransApply->save();
-        // return redirect('/');
+        $TransApply->application_record = $request->get('appRecord');
+        $TransApply->application_date = $request->get('appDate');
+        $TransApply->application_type_id = $request->get('appTypeId');
+        $TransApply->save();
+        return redirect('/');
 
         return back()->with("status", "Your message has been received, We'll get back to you shortly.");
          
@@ -134,12 +134,16 @@ class ApplyController extends Controller
     {
         //
 
-            
-        User::find($id)->delete($id);
-    
-        return response()->json([
-            'success' => 'Record deleted successfully!'
-        ]);
-        }
+      
         
+        //
+        // ApplyModel::find($id)->delete();
+        // DB::table('transformer_applicant')->where('applicant_id', $id)->delete();
+        DB::delete('delete from transformer_applicant where applicant_id = ?',[$id]);
+        
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
+        
+}
 }

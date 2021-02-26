@@ -32,7 +32,7 @@
       <td>{{$applicant_info->ADDRESS}}</td>
       
       <meta name="csrf-token" content="{{csrf_token()}}">
-      <td><button type="button" id="asdaasd" class="btn btn-outline-dark btn-sm deleteApplicant" data-id="{{$applicant_info->applicant_id}}"> Delete</button></td>
+      <td><button type="button" id="asdaasd" class="btn btn-outline-dark btn-sm deleteApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}"> Delete</button></td>
       
     </tr>
     @endforeach
@@ -49,31 +49,39 @@
 </div>
 @endsection
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-$("#asdaasd").click(function(){
-  alert("click");
+
+jQuery(document).ready(function () {
 
 
-    // var id = $(this).data("id");
-    // var token = $("meta[name='csrf-token']").attr("content");
+        jQuery(".deleteApplicant").click(function(){
+    
+          var id = $(this).data("id");
+          // alert(id);
+        var token = $(this).data("token");
+        $.ajax(
+        {
+            url: "view/"+id,
+            type: 'DELETE',
+            dataType: "JSON",
+            data: {
+                "id": id,
+                "_method": 'DELETE',
+                "_token": token,
+            },
+            success: function ()
+            {
+                console.log("it Work");
+            }
+        });
 
-    // alert(id);
-   
-//     $.ajax(
-//     {
-//         url: "users/"+id,
-//         type: 'DELETE',
-//         data: {
-//             "id": id,
-//             "_token": token,
-//         },
-//         success: function (){
-//             console.log("it Works");
-//         }
-//     });
-   
-});
+        console.log("It failed");
+      });
 
 
+
+})
 </script>
+
