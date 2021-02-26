@@ -29,4 +29,5 @@ return view('/view_application');
 
 });
 Route::get('/view', 'ViewApplicationController@index');
-Route::get('view/{id}', 'ViewApplicationController@destroy');
+
+Route::delete('/view/delete/{id}', 'ViewApplicationController@delete_Student')->name('applicant.delete');

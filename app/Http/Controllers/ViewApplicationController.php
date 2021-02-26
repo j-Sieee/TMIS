@@ -100,9 +100,27 @@ class ViewApplicationController extends Controller
      
         
         // ApplyModel::find($id)->delete();
-        DB::delete('delete from transformer_applicant where applicant_id = ?',[$id]);
+        // DB::delete('delete from transformer_applicant where applicant_id = ?',[$id]);
         
-        return back()->with("status", "Your message has been received, We'll get back to you shortly.");
+        // return back()->with("status", "Your message has been received, We'll get back to you shortly.");
+        ApplyModel::find($id)->delete();
+        
+        return json_encode(array('statusCode'=>200));
 
     }
+
+    function delete_Student($id){
+
+
+        // echo "asdadads";
+        // ApplyModel::find($id)->delete();
+        DB::delete('delete from transformer_applicant where applicant_id = ?',[$id]);
+        return json_encode(array('statusCode'=>200));
+
+
+       
+
+    }
+
+  
 }
