@@ -9,6 +9,14 @@ use App\TransApplyModel;
 
 class ApplyController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+     
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +25,7 @@ class ApplyController extends Controller
     public function index()
     {
         //
-        $maxID = DB::select('select MAX(`applicant_id`) as MaxID FROM `transformer_applicant`');
-        return view('home',['maxID'=>$maxID]);
+      
 
     }
 
@@ -41,8 +48,7 @@ class ApplyController extends Controller
     public function store(Request $request)
     {
 
-        $i = 1;
-
+       
         $request->validate([
             'inputCode' => 'required',
             'inputfname' => 'required',
@@ -51,34 +57,37 @@ class ApplyController extends Controller
             'inputAddress' => 'required',
             'inputBarangay' => 'required',
             'inputCity' => 'required',
-
-
+            'appRecord' => 'required|unique:transformer_application,application_record',
+            'appDate' => 'required',
+            'appTypeId' => 'required',
         ]);
         
-        //
-        $Apply = New ApplyModel;
-        $Apply->applicant_code = $request->get('inputCode');
-        $Apply->applicant_firstname = $request->get('inputfname');
-        $Apply->applicant_middlename = $request->get('inputmname');
-        $Apply->applicant_lastname = $request->get('inputlname');
-        $Apply->applicant_address = $request->get('inputAddress');
-        $Apply->applicant_barangay = $request->get('inputBarangay');
-        $Apply->applicant_citytown = $request->get('inputCity');
+        // //
+        // $Apply = New ApplyModel;
+        // $Apply->applicant_code = $request->get('inputCode');
+        // $Apply->applicant_firstname = $request->get('inputfname');
+        // $Apply->applicant_middlename = $request->get('inputmname');
+        // $Apply->applicant_lastname = $request->get('inputlname');
+        // $Apply->applicant_address = $request->get('inputAddress');
+        // $Apply->applicant_barangay = $request->get('inputBarangay');
+        // $Apply->applicant_citytown = $request->get('inputCity');
         
-        $Apply->save();
+        // $Apply->save();
+        // $Apply->id;
 
-        $TransApply = New TransApplyModel;
+        // $TransApply = New TransApplyModel;
        
-        $TransApply->applicant_id = $i;
+        // $TransApply->applicant_id = $Apply->id; ;
 
-        $TransApply->application_record = $request->get('appRecord');
-        $TransApply->application_date = $request->get('appDate');
-        $TransApply->application_type_id = $request->get('appTypeId');
-        $TransApply->save();
-        return redirect('/');
+        // $TransApply->application_record = $request->get('appRecord');
+        // $TransApply->application_date = $request->get('appDate');
+        // $TransApply->application_type_id = $request->get('appTypeId');
+        // $TransApply->save();
+        // return redirect('/');
+
+        return back()->with("status", "Your message has been received, We'll get back to you shortly.");
          
-    $i++;
-        
+   
     }
 
     /**
@@ -124,5 +133,13 @@ class ApplyController extends Controller
     public function destroy($id)
     {
         //
-    }
+
+            
+        User::find($id)->delete($id);
+    
+        return response()->json([
+            'success' => 'Record deleted successfully!'
+        ]);
+        }
+        
 }

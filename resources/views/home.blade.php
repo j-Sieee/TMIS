@@ -12,17 +12,17 @@
                 <div class="card-body">
                 <form method="post" action="/apply">
                 @csrf
-  <div class="form-row">
-    <div class="form-group col-md-2">
-      <label for="inputCode">Code</label>
-      <input type="text" class="form-control" name="inputCode" placeholder="Code">
-     
-    </div>
-    <div class="form-group col-md-6">
-      <label for="inputfname">First Name</label>
-      <input type="text" class="form-control" name="inputfname" placeholder="First Name">
-    </div>
-  </div>
+              <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputCode">Code</label>
+                <input type="text" class="form-control" name="inputCode" placeholder="Code">
+              
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputfname">First Name</label>
+                <input type="text" class="form-control" name="inputfname" placeholder="First Name">
+              </div>
+            </div>
 
   <div class="form-row">
   

@@ -13,28 +13,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
-    return view('home');
-});
+// return view('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
+})->middleware('auth');
 
 Route::post('/apply', 'ApplyController@store');
-
 Route::get('/', 'TransformerTypeController@index');
-// Route::get('/', 'ApplyController@index');
+
+Route::get('/view', function(){
+
+return view('/view_application');
+
+});
+Route::get('/view', 'ViewApplicationController@index');
+
+
+
+// Auth::routes();
+// Route::get('/', function () {
+// return view('auth/login');
+
+// });
+
+
+// Route::post('/apply', 'ApplyController@store');
+// Route::get('/', 'TransformerTypeController@index');
+// // Route::get('/', 'ApplyController@index');
+
+// Route::get('/view', function(){
+
+// return view('/view_application');
+
+// });
+// Route::get('/view', 'ViewApplicationController@index');
+
