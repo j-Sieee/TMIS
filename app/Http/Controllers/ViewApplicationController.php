@@ -118,6 +118,7 @@ class ViewApplicationController extends Controller
       
 
         return json_encode(array('statusCode'=>200));
+
         
 
 

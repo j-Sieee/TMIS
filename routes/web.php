@@ -31,3 +31,10 @@ return view('/view_application');
 Route::get('/view', 'ViewApplicationController@index');
 
 Route::delete('/view/delete/{id}', 'ViewApplicationController@delete_Student')->name('applicant.delete');
+
+Route::get('/update', function(){
+
+    return view('/update');
+    
+    });
+Route::get('/update/{id}', 'UpdateDetailsController@index');

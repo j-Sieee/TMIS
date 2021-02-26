@@ -32,7 +32,10 @@
       <td>{{$applicant_info->ADDRESS}}</td>
       
       <meta name="csrf-token" content="{{csrf_token()}}">
-      <td><button type="button" id="asdaasd" onclick="delete_Student({{$applicant_info->applicant_id}})"  class="btn btn-outline-dark btn-sm deleteApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}"> Delete</button></td>
+    
+      <td>
+      <button type="button" class="btn btn-outline-dark btn-sm deleteApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}">Update</button>
+      <button type="button" onclick="delete_Student({{$applicant_info->applicant_id}})"  class="btn btn-outline-dark btn-sm deleteApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}"> Delete</button></td>
       <!-- onclick="delete_Student({{$applicant_info->applicant_id}})" -->
     </tr>
     @endforeach
@@ -69,6 +72,7 @@ alert(id);
       success: function (){
 
         console.log("success");
+        location.reload();
       }
 
 
