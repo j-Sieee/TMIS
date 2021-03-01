@@ -55,9 +55,6 @@
 
     Transformer Application Type:
     <select name="appTypeId" class="custom-select mr-sm-1" id="inlineFormCustomSelect">
-        @foreach ($users as $apptrans_type)
-        <option value="{{$apptrans_type->application_type_id}}">{{$apptrans_type->application_type_name}}</option>
-        @endforeach
        
       </select>
 </div>

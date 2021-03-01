@@ -1,59 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
-
-<div class="container">
-
-<div class="row justify-content-center">
-    <div class="col-md-10">
-        <div class="card">
-            <div class="card-header">
-                View Records
-            </div>
-        </div>
-        <div card-body>
-        <div class="table-responsive">
-        
-        <table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Applicant Code</th>
-      <th scope="col">Applicant Name</th>
-      <th scope="col">Applicant Address</th>
-    </tr>
-  </thead>
-  <tbody>
-  @foreach($users as $applicant_info)
-    <tr>
-
-      <th scope="row">{{$applicant_info->applicant_code}}</th>
-      <td>{{$applicant_info->NAME}}</td>
-      <td>{{$applicant_info->ADDRESS}}</td>
-      
-      <meta name="csrf-token" content="{{csrf_token()}}">
-    
-      <td>
-      <a type="button" onclick="update_Applicant({{$applicant_info->applicant_id}})" class="btn btn-outline-dark btn-sm updateApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}">Update</a>
-      <button type="button" onclick="delete_Applicant({{$applicant_info->applicant_id}})"  class="btn btn-outline-dark btn-sm deleteApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}"> Delete</button></td>
-      <!-- onclick="delete_Student({{$applicant_info->applicant_id}})" -->
-    </tr>
-    @endforeach
-    
-  </tbody>
-</table>
-</div>
-
-        </div>
-    </div>
-
-</div>
-
-</div>
-
-
-
-@endsection
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,11 +10,10 @@
         </button>
       </div>
       <div class="modal-body">
-       
-              <form method="get" action= "">
+              <form method="post" action="">
                     @csrf
             
-         
+     
                    
 
                   <div class="form-row">
@@ -136,10 +79,9 @@
                       </div>
 
     
-  
+               
               </form>
         
-
 
 
       </div>
@@ -151,105 +93,7 @@
   </div>
 </div>
 
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script>
 
 
-function update_Applicant(id){
-
-
-  $("#exampleModal").modal('show');
- 
-       
-    $.ajax(
-    {
-      url: '/view/update/' + id,
-      type: 'GET',
-      dataType: "json",
-      data:{
-        'id': id,
-      },
-      success: function (data){
-
-
-        $.each(data, function (key, value){
-
-            $.each(value, function (index, applicant_data){
-              // console.log(applicant_data.applicant_code)
-              
-            });
-
-
-        });
-
-      }
-
-
-    }
-  )
-
-
-}
-
-function delete_Applicant(id){
-
-// alert(id);
-  $.ajax(
-    {
-      url: '/view/delete/' + id,
-      type: 'DELETE',
-      data:{
-        'id': id,
-        '_token': "{{ csrf_token() }}",
-
-      },
-      success: function (){
-
-        console.log("success");
-        location.reload();
-      }
-
-
-    }
-  )
-
-
-}
-
-
-
-jQuery(document).ready(function () {
-
-
-
-      //   jQuery(".deleteApplicant").click(function(){
-    
-      //     var id = $(this).data("id");
-      //     // alert(id);
-      //   var token = $(this).data("token");
-      //   $.ajax(
-      //   {
-      //       url: "/view/"+id,
-      //       type: 'DELETE',
-      //       data: {
-      //           "id": id,
-      //           "_token": "{{ csrf_token() }}",
-      //       },
-      //       success: function ()
-      //       {
-      //           console.log("it Work");
-      //       }
-      //   });
-
-        
-      // });
-
-
-
-})
 </script>
-

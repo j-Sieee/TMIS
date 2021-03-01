@@ -14,8 +14,6 @@ class ViewApplicationController extends Controller
      */
     public function index()
     {
-        //
-
         
         $applicant_info = DB::select("select `applicant_id`, `applicant_code`, CONCAT(`applicant_firstname`, ' ', ' ', `applicant_middlename`, ' ', `applicant_lastname`) AS NAME, CONCAT(`applicant_address`, ', ', `applicant_barangay`, ', ', `applicant_citytown`) AS ADDRESS FROM `transformer_applicant`");
         return view('view_application',['users'=>$applicant_info]);
@@ -113,18 +111,21 @@ class ViewApplicationController extends Controller
 
 
         // echo "asdadads";
-        // ApplyModel::find($id)->delete();
+        //  ApplyModel::find($id)->delete();
         DB::delete('delete `transformer_application`, `transformer_applicant`  FROM `transformer_application` INNER JOIN`transformer_applicant` WHERE  `transformer_application`.`applicant_id` = `transformer_applicant`.`applicant_id`  AND `transformer_applicant`.`applicant_id` = ?',[$id]);
       
 
         return json_encode(array('statusCode'=>200));
 
         
-
-
-       
-
     }
 
+    public function get_applicant_data($id){
+
+        $applicant_data = DB::select("select * FROM `transformer_applicant` where applicant_id = ?", [$id]);
+
+        return json_encode(array('applicant'=>$applicant_data));
+
+    }
   
 }

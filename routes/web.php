@@ -32,9 +32,11 @@ Route::get('/view', 'ViewApplicationController@index');
 
 Route::delete('/view/delete/{id}', 'ViewApplicationController@delete_Student')->name('applicant.delete');
 
-Route::get('/update', function(){
+Route::get('/view/update', function(){
 
-    return view('/update');
+    return view('update');
     
     });
-Route::get('/update/{id}', 'UpdateDetailsController@index');
+
+
+Route::get('/view/update/{id}', 'ViewApplicationController@get_applicant_data')->name('applicant.edit');

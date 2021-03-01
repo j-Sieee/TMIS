@@ -57,6 +57,12 @@ class UpdateDetailsController extends Controller
     public function edit($id)
     {
         //
+        $applicant_data = DB::select("select * FROM `transformer_applicant` where applicant_id = ?", [$id]);
+
+        return json_encode(array('applicant'=>$applicant_data));
+
+     
+
     }
 
     /**
@@ -81,4 +87,7 @@ class UpdateDetailsController extends Controller
     {
         //
     }
+
+   
+
 }
