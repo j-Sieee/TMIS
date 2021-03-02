@@ -36,5 +36,16 @@ Route::post('/view/update/{id}', 'ViewApplicationController@update')->name('appl
 
 // Route::get('/view/update/{id}', 'ViewApplicationController@get_application_type');
 
+Route::get('/view/details/{id}', function(){
+
+
+
+    return view('update');
+
+    
+});
+Route::get('/view/update/{id}', 'ViewApplicationController@show');
+
+
 
 

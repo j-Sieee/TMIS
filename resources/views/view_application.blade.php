@@ -34,6 +34,7 @@
       <meta name="csrf-token" content="{{csrf_token()}}">
     
       <td>
+      <a type="button" href="view/details/{{$applicant_info->applicant_id}}" class="btn btn-outline-dark btn-sm">View</a>
       <a type="button" onclick="update_Applicant({{$applicant_info->applicant_id}})" class="btn btn-outline-dark btn-sm updateApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}">Update</a>
       <button type="button" onclick="delete_Applicant({{$applicant_info->applicant_id}})"  class="btn btn-outline-dark btn-sm deleteApplicant" data-token="{{ csrf_token() }}" data-id="{{$applicant_info->applicant_id}}"> Delete</button></td>
       <!-- onclick="delete_Student({{$applicant_info->applicant_id}})" -->
@@ -51,8 +52,6 @@
 
 </div>
 
-
-
 @endsection
 
 <!-- Modal -->
@@ -69,10 +68,7 @@
        
               <form method="get" action= "">
                     @csrf
-            
-         
-                   
-
+  
                   <div class="form-row">
                     <div class="form-group col-md-2">
                       <label for="inputCode">Code</label>
@@ -198,8 +194,6 @@ function update_applicationData(){
       }
 
     })
-
-
 
 
 }
