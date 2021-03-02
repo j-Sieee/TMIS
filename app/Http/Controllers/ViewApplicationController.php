@@ -72,6 +72,18 @@ class ViewApplicationController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $inputCode = $request->inputCode;
+        $inputfname = $request->inputfname;
+        $inputmname = $request->inputmname;
+        $inputlname = $request->inputlname;
+        $inputAddress = $request->inputAddress;
+        $inputBarangay = $request->inputBarangay;
+        $inputCity = $request->inputCity;
+        $inputDate = $request->inputDate;
+        $selTransformerId = $request->selTransformerId;
+
+        DB::update('update `transformer_applicant` INNER JOIN`transformer_application` SET `transformer_applicant`.`applicant_firstname`= ?, `transformer_applicant`.`applicant_middlename`= ?, `transformer_applicant`.`applicant_lastname`= ?,`transformer_applicant`.`applicant_address`= ?, `transformer_applicant`.`applicant_barangay`= ?,`transformer_applicant`.`applicant_citytown`= ?, `transformer_applicant`.`updated_at`= ?, `transformer_application`.`application_date` = ?, `transformer_application`.`application_type_id` = ?  WHERE `transformer_application`.`applicant_id` = `transformer_applicant`.`applicant_id` AND  `transformer_applicant`.`applicant_id` = ?', [$inputfname, $inputmname, $inputlname, $inputAddress, $inputBarangay, $inputCity, NOW(),  $inputDate  , $selTransformerId, $id]);
+        return json_encode(array('statusCode'=>200));
     }
 
     /**
@@ -122,9 +134,18 @@ class ViewApplicationController extends Controller
 
     public function get_applicant_data($id){
 
-        $applicant_data = DB::select("select * FROM `transformer_applicant` where applicant_id = ?", [$id]);
-
+        $applicant_data = DB::select("select * FROM `transformer_applicant` INNER JOIN `transformer_application`  where `transformer_applicant`.`applicant_id` = `transformer_application`.`applicant_id` AND `transformer_application`.`applicant_id` = ? ", [$id]);
+        // $transfromer_application_type = DB::select("select * FROM `transformer_application_type`");
+        // $transformer = array();
+        // array_push($transformer, $transfromer_application_type);
         return json_encode(array('applicant'=>$applicant_data));
+
+    }
+
+    public function get_application_type(){
+
+        $transfromer_type = DB::select('select * from transformer_application_type');
+        return json_encode(array('tranformer_type'=>$transfromer_type));
 
     }
   

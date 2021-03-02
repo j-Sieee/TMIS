@@ -77,6 +77,7 @@
                     <div class="form-group col-md-2">
                       <label for="inputCode">Code</label>
                       <input type="text" class="form-control" name="inputCode" placeholder="Code" value=""> 
+                      <input type="hidden" name="inputID" value="">
                                   
                     </div>
                     <div class="form-group col-md-6">
@@ -111,7 +112,7 @@
                   </div>
                   <div class="form-group"> 
                         Transformer Application Type:
-                      <select name="appTypeId" class="custom-select mr-sm-1" id="inlineFormCustomSelect">
+                      <select name="inputTypeId" class="custom-select mr-sm-1" id="inputTypeId">
                           <option value="asdasd"></option>
                       </select>
                     </div>
@@ -119,12 +120,12 @@
                   <div class="form-group">
                   <div class="form-row">    
                   <div class="form-group col-md-6">
-                        <label for="appRecord">Application Record</label>
-                        <input type="text" class="form-control" name="appRecord" placeholder="Records">
+                        <label for="inputRecord">Application Record</label>
+                        <input type="text" class="form-control" name="inputRecord" placeholder="Records" disabled>
                       </div>
                       <div class="form-group col-md-6" >
-                        <label for="appDate">Application Date</label>
-                        <input type="date" class="form-control" name="appDate" >
+                        <label for="inputDate">Application Date</label>
+                        <input type="date" class="form-control" name="inputDate" >
                       </div>
                       </div>
 
@@ -145,7 +146,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button onclick= 'update_applicationData()' type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -159,15 +160,61 @@
 <script>
 
 
+
+function update_applicationData(){
+  var id = $('input[name = "inputID"]').val();
+  var inputCode = $('input[name = "inputCode"]').val();
+  var inputfname = $('input[name = "inputfname"]').val();
+  var inputmname = $('input[name = "inputmname"]').val();
+  var inputlname = $('input[name = "inputlname"]').val();
+  var inputAddress = $('input[name = "inputAddress"]').val();
+  var inputBarangay = $('input[name = "inputBarangay"]').val();
+  var inputCity = $('input[name = "inputCity"]').val();
+  var inputDate = $('input[name = "inputDate"]').val();
+  var selTransformerId = $('#inputTypeId').val();
+
+    $.ajax({
+
+      url: '/view/update/'+id,
+      type: 'post',
+      data:{
+        'id': id,
+        'inputCode': inputCode,
+        'inputfname': inputfname,
+        'inputmname': inputmname,
+        'inputlname': inputlname,
+        'inputAddress': inputAddress,
+        'inputBarangay': inputBarangay,
+        'inputCity': inputCity,
+        'inputDate': inputDate,
+        'selTransformerId' : selTransformerId,
+          _token:'{{ csrf_token() }}',
+      },
+      success: function(data){
+
+        console.log(data);
+        location.reload();
+
+      }
+
+    })
+
+
+
+
+}
+
+
 function update_Applicant(id){
 
+  $('#inputTypeId').empty();
 
   $("#exampleModal").modal('show');
  
        
     $.ajax(
     {
-      url: '/view/update/' + id,
+      url: '/view/get/' + id,
       type: 'GET',
       dataType: "json",
       data:{
@@ -175,23 +222,77 @@ function update_Applicant(id){
       },
       success: function (data){
 
-
         $.each(data, function (key, value){
 
             $.each(value, function (index, applicant_data){
-              // console.log(applicant_data.applicant_code)
+              $('input[name = "inputID"]').val(applicant_data.applicant_id);
+              $('input[name = "inputCode"]').val(applicant_data.applicant_code);
+              $('input[name = "inputfname"]').val(applicant_data.applicant_firstname);
+              $('input[name = "inputmname"]').val(applicant_data.applicant_middlename);
+              $('input[name = "inputlname"]').val(applicant_data.applicant_lastname);
+              $('input[name = "inputAddress"]').val(applicant_data.applicant_address);
+              $('input[name = "inputBarangay"]').val(applicant_data.applicant_barangay);
+              $('input[name = "inputCity"]').val(applicant_data.applicant_citytown);
+              $('input[name = "inputRecord"]').val(applicant_data.application_record);
+              $('input[name = "inputDate"]').val(applicant_data.application_date);
+           
+
+                                                $.ajax(
+                                          {
+                                            url: '/view/get/',
+                                            type: 'GET',
+                                            dataType: "json",
+                                          
+                                            success: function (data){
+
+                                              
+                                            
+                                              $.each(data, function (key, value){
+                                                $.each(value, function (idd, iddvalue){
+                                                        $('#inputTypeId').append($('<option>',
+                                                  {
+                                                      value: iddvalue.application_type_id,
+                                                      text : iddvalue.application_type_name
+                                                  }));
+                                                  $('#inputTypeId').val(applicant_data.application_type_id);  
+                                            
+                                                
+
+                                            });
+                                              
+                                              
+                                                
+
+                                            });
+                                              
+
+                                            
+
+                                            
+                                              
+
+                                            }
+
+
+                                          });
+
               
             });
 
 
         });
 
+       
+        
+
       }
 
 
-    }
-  )
+    });
+    
 
+
+      
 
 }
 

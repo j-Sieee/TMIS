@@ -25,18 +25,16 @@ Route::get('/', 'TransformerTypeController@index');
 
 Route::get('/view', function(){
 
-return view('/view_application');
+return view('view_application');
 
 });
 Route::get('/view', 'ViewApplicationController@index');
-
 Route::delete('/view/delete/{id}', 'ViewApplicationController@delete_Student')->name('applicant.delete');
+Route::get('/view/get/', 'ViewApplicationController@get_application_type');
+Route::get('/view/get/{id}', 'ViewApplicationController@get_applicant_data')->name('applicant.edit');
+Route::post('/view/update/{id}', 'ViewApplicationController@update')->name('applicant.edit');
 
-Route::get('/view/update', function(){
-
-    return view('update');
-    
-    });
+// Route::get('/view/update/{id}', 'ViewApplicationController@get_application_type');
 
 
-Route::get('/view/update/{id}', 'ViewApplicationController@get_applicant_data')->name('applicant.edit');
+

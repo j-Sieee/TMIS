@@ -57,9 +57,9 @@ class ApplyController extends Controller
             'inputAddress' => 'required',
             'inputBarangay' => 'required',
             'inputCity' => 'required',
-            'appRecord' => 'required|unique:transformer_application,application_record',
-            'appDate' => 'required',
-            'appTypeId' => 'required',
+            'inputRecord' => 'required|unique:transformer_application,application_record',
+            'inputDate' => 'required',
+            'inputTypeId' => 'required',
         ]);
         
         //
